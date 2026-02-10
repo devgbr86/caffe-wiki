@@ -1,1 +1,3 @@
 # Espécies de Café
+
+O café é uma planta do gênero Coffea, pertencente à família Rubiaceae. Existem mais de 120 espécies catalogadas, mas apenas quatro têm relevância comercial significativa: Arábica, Robusta, Liberica e Excelsa. As plantas de café são arbustos ou pequenas árvores que produzem frutos chamados cerejas, dentro dos quais estão os grãos. O cafeeiro prefere climas tropicais e subtropicais, com altitudes variando conforme a espécie. A planta leva de 3 a 4 anos para começar a produzir frutos e pode ter vida produtiva de 20 a 30 anos. As flores são brancas e aromáticas, surgindo após períodos de chuva. Cada cereja normalmente contém dois grãos, exceto no caso do café peaberry, que possui apenas um grão arredondado.

@@ -1,1 +1,3 @@
 # Café Robusta
+
+O Coffea canephora, conhecido como Robusta, representa 30-40% da produção mundial. Originário da África Ocidental e Central, é cultivado principalmente no Vietnã, Brasil e Indonésia. Os grãos são mais arredondados e menores que os do Arábica, com sulco central mais reto. O sabor é mais amargo e encorpado, com notas terrosas e de grãos. Contém aproximadamente o dobro de cafeína do Arábica, entre 2,2% e 2,7%, o que contribui para seu amargor característico. A planta é resistente e pode ser cultivada em altitudes mais baixas, até 800 metros, com temperaturas entre 24°C e 30°C. É mais resistente a pragas e doenças e possui maior produtividade. Frequentemente usado em blends para espressos e café solúvel devido ao seu corpo e crema abundante.

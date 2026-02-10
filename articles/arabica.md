@@ -1,1 +1,3 @@
 # Café Arábica
+
+O Coffea arabica representa cerca de 60-70% da produção mundial de café e é considerado o de melhor qualidade. Originário das montanhas da Etiópia, o Arábica cresce melhor em altitudes entre 600 e 2000 metros. Os grãos têm formato oval alongado e um sulco central sinuoso em forma de S. O sabor é mais complexo e suave, com notas que variam de florais a frutadas, com acidez pronunciada e menor amargor. O teor de cafeína é relativamente baixo, entre 1,2% e 1,5%. A planta é mais delicada e suscetível a pragas e doenças, especialmente a ferrugem do café. Requer condições climáticas específicas com temperaturas entre 15°C e 24°C. O cultivo é mais desafiador e custoso, o que se reflete no preço final do produto.

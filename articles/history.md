@@ -1,2 +1,3 @@
 # O Café na Antiguidade 
 
+O café tem suas origens na Etiópia, onde a lenda conta que um pastor chamado Kaldi descobriu os grãos energizantes ao observar suas cabras mais animadas após comerem os frutos. A partir do século XV, o cultivo se expandiu para a Península Arábica, onde os árabes começaram a torrar e preparar a bebida. No século XVII, o café chegou à Europa através de Veneza e rapidamente conquistou o continente. As primeiras cafeterias surgiram em Oxford e Londres, tornando-se centros de discussão intelectual. No século XVIII, o café foi levado para as Américas, onde encontrou condições ideais de cultivo no Brasil e na Colômbia. A partir do século XIX, o café tornou-se uma commodity global, moldando economias e culturas em todos os continentes.
