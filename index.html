@@ -4,132 +4,128 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Frontstack</title>
-     <link rel="stylesheet" href="style.css">
-     <link rel="icon" href="./assets/icons/edu.svg" type="image/svg+xml">
-
-
+     <title>CaffeWiki</title>
+     <link rel="stylesheet" href="./assets/css/main.css">
+     <link rel="icon" href="./assets/img/icon_caffe.jpeg" type="jpeg">
 
      <!-- SEO Básico -->
      <meta name="description"
-          content="Blog sobre desenvolvimento front-end, design de interfaces e boas práticas para criar experiências web modernas e acessíveis.">
+          content="Wiki completa sobre café: marcas, métodos de preparo, origens, dados técnicos, tabelas comparativas e informações detalhadas sobre o mundo do café.">
      <meta name="keywords"
-          content="frontend, front-end, desenvolvimento web, design de interfaces, JavaScript, HTML, CSS, React, UX, UI">
-     <meta name="author" content="Frontstack">
+          content="café, coffee, wiki café, marcas de café, preparo de café, métodos de extração, coffee brewing, espresso, cafeteira, grãos de café, torrefação">
+     <meta name="author" content="CoffeeWiki">
      <meta name="robots" content="index, follow">
 
      <!-- Open Graph / Facebook -->
      <meta property="og:type" content="website">
-     <meta property="og:url" content="https://frontstack.pages.dev/">
-     <meta property="og:title" content="Frontstack - Blog de Desenvolvimento Front-End">
+     <meta property="og:url" content="https://coffeewiki.pages.dev/">
+     <meta property="og:title" content="CoffeeWiki - Enciclopédia Completa sobre Café">
      <meta property="og:description"
-          content="Explorar e compartilhar conhecimento sobre desenvolvimento front-end, design de interfaces e as melhores práticas para criar experiências web modernas e acessíveis.">
-     <meta property="og:image" content="https://frontstack.pages.dev/assets/img/og-image.jpg">
+          content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
+     <meta property="og:image" content="https://coffeewiki.pages.dev/assets/img/og-coffee.jpg">
 
      <!-- Twitter -->
      <meta property="twitter:card" content="summary_large_image">
-     <meta property="twitter:url" content="https://frontstack.pages.dev/">
-     <meta property="twitter:title" content="Frontstack - Blog de Desenvolvimento Front-End">
+     <meta property="twitter:url" content="https://coffeewiki.pages.dev/">
+     <meta property="twitter:title" content="CoffeeWiki - Enciclopédia Completa sobre Café">
      <meta property="twitter:description"
-          content="Explorar e compartilhar conhecimento sobre desenvolvimento front-end, design de interfaces e as melhores práticas para criar experiências web modernas e acessíveis.">
-     <meta property="twitter:image" content="https://frontstack.pages.dev/assets/img/twitter-image.jpg">
+          content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
+     <meta property="twitter:image" content="https://coffeewiki.pages.dev/assets/img/twitter-coffee.jpg">
 
      <!-- Canonical URL -->
-     <link rel="canonical" href="https://frontstack.pages.dev/">
+     <link rel="canonical" href="https://coffeewiki.pages.dev/">
 
      <!-- Idioma -->
      <meta http-equiv="content-language" content="pt-BR">
-
-
 
 </head>
 
 <body>
      <header>
-
           <h1>
-               <img class="logo" src="./assets/img/logotype.png" alt="Frontkit Logo">
-               Frontstack
+               <img class="logo" src="./assets/img/icon_caffe.jpeg" alt="CoffeeWiki Logo">
+               CaffeWiki
           </h1>
           <nav>
                <a href="index.html">Arquivo</a>
-               <a href="index.html?search=">🔎Pesquisar</a>
-
-               <a href="#footerstack">Sobre/Contato</a>
+               <a href="index.html?search=">🔍 Buscar</a>
+               <a href="#footerwiki">Sobre</a>
           </nav>
      </header>
 
      <main>
 
-
-
-
           <!-- LISTA -->
           <section id="list-view">
-               <h2 style="text-align: center;">Arquivo</h2>
+               <h2 style="text-align: center;">Arquivo da Wiki</h2>
                <ul id="posts"></ul>
           </section>
 
           <!-- POST -->
           <section id="post-view" style="display:none">
-               <a href="index.html" class="back-link">← Voltar</a>
+               <a href="index.html" class="back-link">← Voltar ao Arquivo</a>
                <article id="content"></article>
           </section>
 
           <!-- SEARCH -->
           <section id="search-view" style="display:none">
-               <a href="index.html" class="back-link">← Voltar</a>
+               <a href="index.html" class="back-link">← Voltar ao Arquivo</a>
                <div class="search-box">
-                    <input id="q" type="text" placeholder="🔎Pesquisar..." />
+                    <input id="q" type="text" placeholder="🔍 Buscar marcas, métodos, origens..." />
                </div>
                <ul id="results"></ul>
           </section>
 
-
-
-
-
-
-
      </main>
 
-     <footer id="footerstack">
+     <footer id="footerwiki">
           <div class="footer-content">
 
-
-
-               <!-- SEÇÃO PROPOSTA DO BLOG -->
-               <section id="sobre" class="about-section">
-                    <h2>Este blog tem como proposta...</h2>
-                    <p>Explorar e compartilhar conhecimento sobre desenvolvimento front-end,<br>
-                         design de interfaces e as
-                         melhores práticas para criar experiências web funcionais.</p>
+               <!-- SEÇÃO TAGS RÁPIDAS -->
+               <section class="quick-tags-section">
+                    <h3>Busca Rápida por Categorias</h3>
+                    <div class="tags-container">
+                         <a href="index.html?search=torrefação" class="tag-button">Torrefação</a>
+                         <a href="index.html?search=moagem" class="tag-button">Moagem</a>
+                         <a href="index.html?search=arábica" class="tag-button">Arábica</a>
+                         <a href="index.html?search=robusta" class="tag-button">Robusta</a>
+                         <a href="index.html?search=excelsa" class="tag-button">Excelsa</a>
+                         <a href="index.html?search=liberica" class="tag-button">Liberica</a>
+                         <a href="index.html?search=espresso" class="tag-button">Espresso</a>
+                         <a href="index.html?search=método" class="tag-button">Método</a>
+                         <a href="index.html?search=prensa" class="tag-button">Prensa</a>
+                         <a href="index.html?search=aeropress" class="tag-button">Aeropress</a>
+                         <a href="index.html?search=origem" class="tag-button">Origem</a>
+                         <a href="index.html?search=região" class="tag-button">Região</a>
+                    </div>
                </section>
 
-               <!-- SEÇÃO CONTATO -->
-               <section class="contact-section">
-                    <h3>Entre em Contato</h3>
-                    <p>Gostou do conteúdo? Fique à vontade para entrar em contato!</p>
+               <!-- SEÇÃO PROPOSTA DA WIKI -->
+               <section id="sobre" class="about-section">
+                    <h2>Sobre a CaffeWiki</h2>
+                    <p>Base de conhecimento dedicada a catalogar e documentar informações técnicas sobre café.<br>
+                         Marcas, métodos de preparo, origens, dados comparativos e especificações para referência
+                         completa.</p>
+               </section>
+
+               <!-- SEÇÃO CONTRIBUIR -->
+               <section class="contribute-section">
+                    <h3>Contribuir</h3>
+                    <p>Quer adicionar informações, corrigir dados ou sugerir novas entradas?</p>
                     <div class="contact-links">
-                         <a href="mailto:topverbs@gmail.com" class="contact-link">
+                         <a href="mailto:coffeewiki@example.com" class="contact-link">
                               <span class="icon">✉️</span>
                               <span>Email</span>
                          </a>
-                         <a href="https://github.com/devgbr86" target="_blank" rel="noopener noreferrer"
+                         <a href="https://github.com/coffeewiki" target="_blank" rel="noopener noreferrer"
                               class="contact-link">
-                              <span class="icon">👾</span>
+                              <span class="icon">💾</span>
                               <span>GitHub</span>
-                         </a>
-                         <a href="https://linkedin.com/in/devgbr" target="_blank" rel="noopener noreferrer"
-                              class="contact-link">
-                              <span class="icon">🌐</span>
-                              <span>LinkedIn</span>
                          </a>
                     </div>
                </section>
 
-               <p class="footer-note">Email para Contato: topverbs@gmail.com</p>
-               <p class="footer-note">© 2025 Frontstack</p>
+               <p class="footer-note">© 2025 CaffeWiki</p>
 
           </div>
      </footer>

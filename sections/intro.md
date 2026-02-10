@@ -1,4 +1,4 @@
-# O que é copywriting e por que todo DEV precisa dominar isso
+# Café: História Antiga 
 
 Quando a galera fala “copywriting”, muita gente pensa em anúncio de perfume ou em e-mail de Black Friday.  
 Mas a real é: **copywriting é a habilidade de escrever para persuadir** — não só pra convencer alguém a comprar, mas pra fazer alguém ler, clicar, responder, agir. É texto com objetivo, não texto por texto.

@@ -1,30 +1,30 @@
 // ===================================
-// CONFIGURAÇÃO - ADICIONE SEUS POSTS AQUI
+// CONFIGURAÇÃO - ADICIONE SUAS PÁGINAS WIKI AQUI
 // ===================================
-const POSTS = [
-  "post8.md",
-  "post7.md",
-  "post6.md",
-  "post5.md",
-  "post4.md",
+const SECTIONS = [
+  "intro.md",
+  "arabica/especie-arabica.md",
   "post3.md",
-  "post2.md",
-  "post1.md"
+  "post4.md",
+  "post5.md",
+  "post6.md",
+  "post7.md",
+  "post8.md",
+  "post9.md"
 ];
 
 // ===================================
-// CÓDIGO DO BLOG
+// CÓDIGO DA WIKI
 // ===================================
 
 async function fetchMD(file) {
   try {
-    // Caminho relativo correto para GitHub Pages
-    const response = await fetch(`posts/${file}`);
-    if (!response.ok) throw new Error('Post não encontrado');
+    const response = await fetch(`sections/${file}`);
+    if (!response.ok) throw new Error('Página não encontrada');
     return await response.text();
   } catch (error) {
     console.error(`Erro ao carregar ${file}:`, error);
-    return `# Erro ao carregar post\n\nVerifique se o arquivo ${file} existe na pasta /posts/`;
+    return `# Erro ao carregar página\n\nVerifique se o arquivo ${file} existe na pasta /sections/`;
   }
 }
 
@@ -41,7 +41,7 @@ function show(view) {
   view.style.display = "block";
 }
 
-// ----- POST -----
+// ----- VISUALIZAÇÃO DE PÁGINA -----
 if (file) {
   show(postView);
 
@@ -50,7 +50,7 @@ if (file) {
     document.getElementById("content").innerHTML = DOMPurify.sanitize(html);
   });
 
-// ----- SEARCH -----
+// ----- BUSCA -----
 } else if (search !== null) {
   show(searchView);
 
@@ -61,7 +61,7 @@ if (file) {
   let data = [];
 
   Promise.all(
-    POSTS.map(async f => {
+    SECTIONS.map(async f => {
       const md = await fetchMD(f);
       const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
       return { 
@@ -86,14 +86,14 @@ if (file) {
     results.innerHTML = "";
 
     if (!q) {
-      results.innerHTML = '<li style="color: #999;">...</li>';
+      results.innerHTML = '<li style="color: #999;">Digite para buscar marcas, métodos, origens...</li>';
       return;
     }
 
     const matches = data.filter(p => p.text.includes(q));
 
     if (matches.length === 0) {
-      results.innerHTML = '<li style="color: #999;">Nenhum resultado encontrado.</li>';
+      results.innerHTML = '<li style="color: #999;">Nenhum resultado encontrado. Tente termos como: Pilão, V60, Arábica, Torrefação.</li>';
       return;
     }
 
@@ -104,21 +104,21 @@ if (file) {
     });
   }
 
-// ----- LISTA -----
+// ----- LISTA DE PÁGINAS -----
 } else {
   show(listView);
 
   const ul = document.getElementById("posts");
 
   Promise.all(
-    POSTS.map(async f => {
+    SECTIONS.map(async f => {
       const md = await fetchMD(f);
       const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
       return { file: f, title: title };
     })
-  ).then(posts => {
+  ).then(sections => {
     ul.innerHTML = "";
-    posts.forEach(p => {
+    sections.forEach(p => {
       const li = document.createElement('li');
       li.innerHTML = `<a href="?file=${encodeURIComponent(p.file)}">${p.title}</a>`;
       ul.appendChild(li);
