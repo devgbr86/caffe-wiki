@@ -1,28 +1,21 @@
 // ===================================
 // CONFIGURAÇÃO - ADICIONE SUAS PÁGINAS WIKI AQUI
 // ===================================
-
-// POSTS QUE APARECEM NA HOME (escolha apenas 5)
-const HOME_POSTS = [
-  "intro.md",
-  "arabica/especie-arabica.md",
-  "post3.md",
-  "post4.md",
-  "post5.md"
-];
-
-// TODOS OS POSTS (para busca e navegação completa)
-const ALL_SECTIONS = [
-  "intro.md",
-  "arabica/especie-arabica.md",
-  "teste.md",
-  "post4.md",
-  "post5.md",
-  "post6.md",
-  "post7.md",
-  "post8.md",
-  "post9.md",
-  "post10.md"
+const SECTIONS = [
+  "history.md",
+  "species.md",
+  "arabica.md",
+  "robusta.md",
+  "liberica.md",
+  "excelsa.md",
+  "varieties.md",
+  "processing.md",
+  "roasting.md",
+  "grind_brew.md",
+  "industry.md",
+  "brands.md",
+  "nutrition.md",
+  "glossary.md"
 ];
 
 // ===================================
@@ -72,9 +65,8 @@ if (file) {
 
   let data = [];
 
-  // Usa ALL_SECTIONS para indexar TUDO na busca
   Promise.all(
-    ALL_SECTIONS.map(async f => {
+    SECTIONS.map(async f => {
       const md = await fetchMD(f);
       const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
       return { 
@@ -117,15 +109,14 @@ if (file) {
     });
   }
 
-// ----- LISTA DE PÁGINAS (HOME) -----
+// ----- LISTA DE PÁGINAS -----
 } else {
   show(listView);
 
   const ul = document.getElementById("posts");
 
-  // Usa HOME_POSTS para mostrar apenas 5 selecionados
   Promise.all(
-    HOME_POSTS.map(async f => {
+    SECTIONS.map(async f => {
       const md = await fetchMD(f);
       const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
       return { file: f, title: title };
