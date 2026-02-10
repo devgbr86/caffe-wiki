@@ -24,12 +24,12 @@ const SECTIONS = [
 
 async function fetchMD(file) {
   try {
-    const response = await fetch(`sections/${file}`);
+    const response = await fetch(`articles/${file}`);
     if (!response.ok) throw new Error('Página não encontrada');
     return await response.text();
   } catch (error) {
     console.error(`Erro ao carregar ${file}:`, error);
-    return `# Erro ao carregar página\n\nVerifique se o arquivo ${file} existe na pasta /sections/`;
+    return `# Erro ao carregar página\n\nVerifique se o arquivo ${file} existe na pasta /articles/`;
   }
 }
 
