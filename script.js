@@ -91,7 +91,7 @@ if (file) {
     results.innerHTML = "";
 
     if (!q) {
-      results.innerHTML = '<li style="color: #999;">Digite para pesquisar marcas, métodos, origens...</li>';
+      results.innerHTML = '<li style="color: #999;">Digite para buscar marcas, métodos, origens...</li>';
       return;
     }
 
