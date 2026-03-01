@@ -6,20 +6,20 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>CaffeWiki</title>
      <link rel="stylesheet" href="./style.css">
-     <link rel="icon" href="./assets/icon_grain.png" type="png">
+     <link rel="icon" href="./assets/icon_grain.png" type="image/png">
 
      <!-- SEO Básico -->
      <meta name="description"
           content="Wiki completa sobre café: marcas, métodos de preparo, origens, dados técnicos, tabelas comparativas e informações detalhadas sobre o mundo do café.">
      <meta name="keywords"
           content="café, coffee, wiki café, marcas de café, preparo de café, métodos de extração, coffee brewing, espresso, cafeteira, grãos de café, torrefação">
-     <meta name="author" content="CoffeeWiki">
+     <meta name="author" content="CaffeWiki">
      <meta name="robots" content="index, follow">
 
-     <!-- Open Graph / Facebook -->
+     <!-- Open Graph -->
      <meta property="og:type" content="website">
      <meta property="og:url" content="https://devgbr86.github.io/caffe-wiki/">
-     <meta property="og:title" content="CaffeWiki - Enciclopédia Completa sobre Café">
+     <meta property="og:title" content="CaffeWiki — Enciclopédia Completa sobre Café">
      <meta property="og:description"
           content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
      <meta property="og:image" content="https://devgbr86.github.io/caffe-wiki/assets/logo_type.png">
@@ -27,24 +27,22 @@
      <!-- Twitter -->
      <meta property="twitter:card" content="summary_large_image">
      <meta property="twitter:url" content="https://devgbr86.github.io/caffe-wiki/">
-     <meta property="twitter:title" content="CaffeWiki - Enciclopédia Completa sobre Café">
+     <meta property="twitter:title" content="CaffeWiki — Enciclopédia Completa sobre Café">
      <meta property="twitter:description"
           content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
      <meta property="twitter:image" content="https://devgbr86.github.io/caffe-wiki/assets/logo_type.png">
 
-     <!-- Canonical URL -->
+     <!-- Canonical -->
      <link rel="canonical" href="https://devgbr86.github.io/caffe-wiki/">
-
-     <!-- Idioma -->
      <meta http-equiv="content-language" content="pt-BR">
-
 </head>
 
 <body>
+
      <header>
           <h1>
-               <img class="logo" src="./assets/icon_grain.png" alt="CoffeeWiki Logo">
-
+               <img class="logo" src="./assets/icon_grain.png" alt="CaffeWiki Logo">
+               <span></span>
           </h1>
           <nav>
                <a href="index.html">Arquivo</a>
@@ -56,7 +54,7 @@
 
           <!-- LISTA -->
           <section id="list-view">
-               <h2>Artigos & Categorias</h2>
+               <h2>Artigos &amp; Categorias</h2>
                <ul id="posts"></ul>
           </section>
 
@@ -70,7 +68,7 @@
           <section id="search-view" style="display:none">
                <a href="index.html" class="back-link">← Voltar</a>
                <div class="search-box">
-                    <input id="q" type="text" placeholder="🔍 Buscar marcas, termos e outras informações" />
+                    <input id="q" type="text" placeholder="Buscar marcas, termos e outras informações…" />
                </div>
                <ul id="results"></ul>
           </section>
@@ -80,9 +78,7 @@
      <footer id="footerwiki">
           <div class="footer-content">
 
-
-
-               <!-- SEÇÃO PROPOSTA DA WIKI -->
+               <!-- SOBRE -->
                <section id="sobre" class="about-section">
                     <h2>Sobre a CaffeWiki</h2>
                     <p>Desenvolvido por Guilherme Ribeiro. Base de conhecimento dedicada a catalogar e documentar
@@ -90,7 +86,7 @@
                          especificações para referência completa.</p>
                </section>
 
-               <!-- SEÇÃO CONTRIBUIR -->
+               <!-- CONTATO -->
                <section class="contribute-section">
                     <h3>Contato e Sugestões</h3>
                     <p>Quer adicionar informações, corrigir dados ou sugerir novas entradas?</p>
@@ -115,6 +111,7 @@
      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
      <script src="script.js"></script>
+
 </body>
 
 </html>
