@@ -40,21 +40,22 @@
 <body>
 
      <header>
-          <h1>
-               <img class="logo" src="./assets/icon_grain.png" alt="CaffeWiki Logo">
-               <span></span>
-          </h1>
-          <nav>
-               <a href="index.html">Home</a>
-               <a href="index.html?search=">🔍 Buscar</a>
-          </nav>
+          <a href="index.html" class="header-logo-link">
+               <img class="logo" src="./assets/icon_grain.png" alt="CaffeWiki — Voltar ao início">
+          </a>
      </header>
 
      <main>
 
           <!-- LISTA -->
           <section id="list-view">
-               <h2>Artigos &amp; Categorias</h2>
+               <div class="list-header">
+                    <h2>Artigos &amp; Categorias</h2>
+                    <a href="index.html?search=" class="search-btn">
+                         <span class="search-btn-icon">⌕</span>
+                         <span>Buscar</span>
+                    </a>
+               </div>
                <ul id="posts"></ul>
           </section>
 

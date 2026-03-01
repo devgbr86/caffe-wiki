@@ -1,5 +1,5 @@
 /* ===================================
-   CaffeWiki — Style v2
+   CaffeWiki — Style v3
    Editorial Luxury · Third Wave Coffee
    =================================== */
 
@@ -71,7 +71,7 @@ body {
 }
 
 /* ===================================
-   HEADER
+   HEADER — logo only, centered
    =================================== */
 
 header {
@@ -80,20 +80,16 @@ header {
      z-index: 1000;
      background: var(--espresso);
      border-bottom: 1px solid rgba(160, 113, 74, .25);
-     padding: 0 3rem;
+     height: 68px;
      display: flex;
      align-items: center;
-     justify-content: space-between;
-     height: 80px;
-     gap: 2rem;
-
-     /* glass depth */
+     justify-content: center;
      box-shadow:
           0 1px 0 rgba(255, 255, 255, .04) inset,
           0 8px 32px rgba(0, 0, 0, .35);
 }
 
-/* subtle grain overlay */
+/* grain overlay */
 header::before {
      content: '';
      position: absolute;
@@ -103,22 +99,23 @@ header::before {
      opacity: .6;
 }
 
-header h1 {
+.header-logo-link {
+     position: relative;
+     z-index: 1;
      display: flex;
      align-items: center;
-     gap: 1rem;
-     flex-shrink: 0;
+     line-height: 0;
 }
 
 .logo {
-     width: 42px;
-     height: 42px;
+     width: 40px;
+     height: 40px;
      border-radius: 50%;
      object-fit: cover;
      border: 1.5px solid rgba(160, 113, 74, .5);
      background: var(--roast);
-     transition: transform .6s var(--ease-spring), box-shadow .4s ease;
      display: block;
+     transition: transform .6s var(--ease-spring), box-shadow .4s ease;
 }
 
 .logo:hover {
@@ -126,166 +123,157 @@ header h1 {
      box-shadow: 0 0 0 4px rgba(160, 113, 74, .2);
 }
 
-/* wordmark via CSS — hidden img replaced by pseudo if you want,
-   but we keep the img tag minimal */
-header h1 span {
-     font-family: 'Cormorant Garamond', serif;
-     font-size: 1.6rem;
-     font-weight: 300;
-     letter-spacing: .12em;
-     color: var(--cream);
-     text-transform: uppercase;
-}
-
-nav {
-     display: flex;
-     align-items: center;
-     gap: .25rem;
-}
-
-nav a {
-     position: relative;
-     color: var(--latte);
-     text-decoration: none;
-     font-size: .85rem;
-     font-weight: 500;
-     letter-spacing: .06em;
-     text-transform: uppercase;
-     padding: .55rem 1.1rem;
-     border-radius: var(--radius-sm);
-     transition: color .3s ease, background .3s ease;
-}
-
-nav a::after {
-     content: '';
-     position: absolute;
-     bottom: 4px;
-     left: 1.1rem;
-     right: 1.1rem;
-     height: 1px;
-     background: var(--caramel);
-     transform: scaleX(0);
-     transform-origin: right;
-     transition: transform .35s var(--ease-out);
-}
-
-nav a:hover {
-     color: var(--cream);
-     background: rgba(255, 255, 255, .06);
-}
-
-nav a:hover::after {
-     transform: scaleX(1);
-     transform-origin: left;
-}
-
 /* ===================================
    MAIN
    =================================== */
 
 main {
-     max-width: 1120px;
+     max-width: 760px;
      margin: 0 auto;
-     padding: 120px 3rem 6rem;
+     padding: 108px 2rem 6rem;
 }
 
 /* ===================================
-   LIST VIEW
+   LIST VIEW — header row + search btn
    =================================== */
+
+.list-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 2rem;
+     gap: 1.5rem;
+}
 
 #list-view h2 {
      font-family: 'Cormorant Garamond', serif;
-     font-size: 3rem;
+     font-size: 2.2rem;
      font-weight: 300;
      font-style: italic;
      color: var(--roast);
      letter-spacing: -.01em;
-     text-align: center;
-     margin-bottom: 3rem;
      line-height: 1.1;
+     flex: 1;
 }
 
-#list-view h2::after {
-     content: '';
-     display: block;
-     width: 40px;
-     height: 1.5px;
-     background: var(--caramel);
-     margin: 1rem auto 0;
+/* Search button in main */
+.search-btn {
+     display: inline-flex;
+     align-items: center;
+     gap: .55rem;
+     text-decoration: none;
+     color: var(--muted);
+     font-size: .875rem;
+     font-weight: 500;
+     letter-spacing: .05em;
+     text-transform: uppercase;
+     padding: .65rem 1.25rem;
+     border: 1px solid rgba(92, 58, 35, .18);
+     border-radius: var(--radius-sm);
+     background: var(--white);
+     box-shadow: var(--shadow-sm);
+     transition: all .3s var(--ease-out);
+     flex-shrink: 0;
+}
+
+.search-btn-icon {
+     font-size: 1.15rem;
+     line-height: 1;
+     color: var(--caramel);
+}
+
+.search-btn:hover {
+     color: var(--espresso);
+     border-color: var(--caramel);
+     box-shadow: var(--shadow-md);
+     transform: translateY(-2px);
 }
 
 /* ===================================
-   GRID CARDS
+   FOLDER / STACKED LIST
    =================================== */
 
 #posts,
 #results {
      list-style: none;
-     display: grid;
-     grid-template-columns: repeat(4, 1fr);
-     gap: 1px;
      padding: 0;
-     background: rgba(160, 113, 74, .12);
-     border: 1px solid rgba(160, 113, 74, .12);
+     display: flex;
+     flex-direction: column;
+     border: 1px solid rgba(160, 113, 74, .15);
      border-radius: var(--radius-lg);
      overflow: hidden;
      box-shadow: var(--shadow-md);
+     background: rgba(160, 113, 74, .06);
+     gap: 1px;
 }
 
 #posts li,
 #results li {
      background: var(--white);
-     transition: background .25s ease;
      position: relative;
+     transition: background .2s ease;
 }
 
+/* folder indent line */
 #posts li::before,
 #results li::before {
      content: '';
      position: absolute;
+     left: 0;
+     top: 0;
      bottom: 0;
-     left: 1.5rem;
-     right: 1.5rem;
-     height: 2px;
+     width: 3px;
      background: var(--caramel);
-     transform: scaleX(0);
-     transform-origin: left;
-     transition: transform .35s var(--ease-out);
+     transform: scaleY(0);
+     transform-origin: top;
+     transition: transform .3s var(--ease-out);
 }
 
 #posts li:hover,
 #results li:hover {
      background: var(--foam);
-     z-index: 1;
 }
 
 #posts li:hover::before,
 #results li:hover::before {
-     transform: scaleX(1);
+     transform: scaleY(1);
 }
 
 #posts a,
 #results a {
      display: flex;
      align-items: center;
-     justify-content: center;
-     text-align: center;
+     gap: 1rem;
      width: 100%;
-     height: 100%;
-     min-height: 100px;
-     padding: 1.75rem 1.5rem;
+     padding: 1rem 1.5rem 1rem 1.75rem;
      text-decoration: none;
      color: var(--roast);
-     font-size: .9rem;
-     font-weight: 500;
-     letter-spacing: .01em;
+     font-size: 1.05rem;
+     font-weight: 400;
      line-height: 1.4;
-     transition: color .25s ease;
+     transition: color .2s ease, padding-left .2s var(--ease-out);
 }
 
-#posts a:hover,
-#results a:hover {
+/* folder icon */
+#posts a::before,
+#results a::before {
+     content: '▸';
+     font-size: .7rem;
+     color: var(--subtle);
+     flex-shrink: 0;
+     transition: color .2s ease, transform .2s var(--ease-out);
+}
+
+#posts li:hover a,
+#results li:hover a {
      color: var(--bark);
+     padding-left: 2rem;
+}
+
+#posts li:hover a::before,
+#results li:hover a::before {
+     color: var(--caramel);
+     transform: rotate(90deg);
 }
 
 /* ===================================
@@ -323,7 +311,7 @@ main {
    =================================== */
 
 .search-box {
-     margin-bottom: 2.5rem;
+     margin-bottom: 2rem;
      position: relative;
 }
 
@@ -687,24 +675,9 @@ footer::before {
    RESPONSIVIDADE
    =================================== */
 
-@media (max-width: 1024px) {
-     main {
-          padding-top: 110px;
-     }
-
-     #posts,
-     #results {
-          grid-template-columns: repeat(3, 1fr);
-     }
-}
-
 @media (max-width: 900px) {
-     header {
-          padding: 0 2rem;
-     }
-
      main {
-          padding: 110px 2rem 5rem;
+          padding: 98px 1.75rem 5rem;
      }
 
      #content {
@@ -714,8 +687,7 @@ footer::before {
 
 @media (max-width: 768px) {
      header {
-          height: 70px;
-          gap: 1rem;
+          height: 60px;
      }
 
      .logo {
@@ -723,22 +695,12 @@ footer::before {
           height: 36px;
      }
 
-     nav a {
-          font-size: .8rem;
-          padding: .5rem .85rem;
-     }
-
      main {
-          padding: 100px 1.5rem 4rem;
+          padding: 88px 1.5rem 4rem;
      }
 
      #list-view h2 {
-          font-size: 2.2rem;
-     }
-
-     #posts,
-     #results {
-          grid-template-columns: repeat(2, 1fr);
+          font-size: 1.8rem;
      }
 
      #content {
@@ -756,26 +718,25 @@ footer::before {
 
 @media (max-width: 480px) {
      header {
-          padding: 0 1.25rem;
-          height: 64px;
+          height: 56px;
      }
 
-     nav a {
-          padding: .45rem .7rem;
-          font-size: .78rem;
+     .logo {
+          width: 32px;
+          height: 32px;
      }
 
      main {
-          padding: 94px 1.25rem 3rem;
+          padding: 80px 1.25rem 3rem;
      }
 
      #list-view h2 {
-          font-size: 1.8rem;
+          font-size: 1.55rem;
      }
 
-     #posts,
-     #results {
-          grid-template-columns: 1fr;
+     .search-btn {
+          font-size: .8rem;
+          padding: .55rem 1rem;
      }
 
      #content {
