@@ -555,7 +555,7 @@ footer {
 }
 
 footer::before {
-     content: 'CAFFE';
+     content: 'CAFFEWIKI';
      position: absolute;
      bottom: -1rem;
      right: 2rem;
