@@ -1,13 +1,9 @@
 /* ===================================
-   CaffeWiki — Style v3
+   CaffeWiki — Style v4
    Editorial Luxury · Third Wave Coffee
    =================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
-
-/* ===================================
-   TOKENS
-   =================================== */
 
 :root {
      --espresso: #1a0f0a;
@@ -18,7 +14,6 @@
      --cream: #f4ede3;
      --foam: #faf6f0;
      --white: #ffffff;
-
      --ink: #1a0f0a;
      --muted: #7a6558;
      --subtle: #b8a898;
@@ -33,11 +28,10 @@
      --shadow-sm: 0 1px 4px rgba(26, 15, 10, .08);
      --shadow-md: 0 4px 20px rgba(26, 15, 10, .1);
      --shadow-lg: 0 12px 48px rgba(26, 15, 10, .14);
-}
 
-/* ===================================
-   RESET & BASE
-   =================================== */
+     --header-h: 68px;
+     --search-h: 44px;
+}
 
 *,
 *::before,
@@ -77,10 +71,10 @@ body {
 header {
      position: fixed;
      inset: 0 0 auto 0;
-     z-index: 1000;
+     z-index: 300;
      background: var(--espresso);
      border-bottom: 1px solid rgba(160, 113, 74, .25);
-     height: 68px;
+     height: var(--header-h);
      display: flex;
      align-items: center;
      justify-content: center;
@@ -89,7 +83,6 @@ header {
           0 8px 32px rgba(0, 0, 0, .35);
 }
 
-/* grain overlay */
 header::before {
      content: '';
      position: absolute;
@@ -124,25 +117,84 @@ header::before {
 }
 
 /* ===================================
-   MAIN
+   FIXED SEARCH BAR — abaixo do header
+   =================================== */
+
+.fixed-search-bar {
+     position: fixed;
+     top: var(--header-h);
+     left: 0;
+     right: 0;
+     z-index: 200;
+     height: var(--search-h);
+     background: rgba(250, 246, 240, .97);
+     backdrop-filter: blur(10px);
+     -webkit-backdrop-filter: blur(10px);
+     border-bottom: 1px solid rgba(160, 113, 74, .18);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 0 2rem;
+}
+
+.fixed-search-wrapper {
+     position: relative;
+     width: 100%;
+     max-width: 760px;
+     display: flex;
+     align-items: center;
+}
+
+.fixed-search-icon {
+     position: absolute;
+     left: 0;
+     top: 50%;
+     transform: translateY(-50%);
+     color: var(--subtle);
+     font-size: 1.2rem;
+     pointer-events: none;
+     line-height: 1;
+}
+
+.fixed-search-input {
+     width: 100%;
+     background: transparent;
+     border: none;
+     border-bottom: 1px solid rgba(160, 113, 74, .2);
+     color: var(--ink);
+     font-family: 'DM Sans', sans-serif;
+     font-size: .9rem;
+     font-weight: 300;
+     padding: 4px 12px 4px 24px;
+     outline: none;
+     transition: border-color .3s ease;
+}
+
+.fixed-search-input::placeholder {
+     color: var(--subtle);
+     font-style: italic;
+}
+
+.fixed-search-input:focus {
+     border-color: var(--caramel);
+}
+
+/* ===================================
+   MAIN — padding considera header + search bar
    =================================== */
 
 main {
      max-width: 760px;
      margin: 0 auto;
-     padding: 108px 2rem 6rem;
+     padding: calc(var(--header-h) + var(--search-h) + 2.5rem) 2rem 6rem;
 }
 
 /* ===================================
-   LIST VIEW — header row + search btn
+   LIST VIEW
    =================================== */
 
 .list-header {
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
      margin-bottom: 2rem;
-     gap: 1.5rem;
 }
 
 #list-view h2 {
@@ -153,40 +205,6 @@ main {
      color: var(--roast);
      letter-spacing: -.01em;
      line-height: 1.1;
-     flex: 1;
-}
-
-/* Search button in main */
-.search-btn {
-     display: inline-flex;
-     align-items: center;
-     gap: .55rem;
-     text-decoration: none;
-     color: var(--muted);
-     font-size: .875rem;
-     font-weight: 500;
-     letter-spacing: .05em;
-     text-transform: uppercase;
-     padding: .65rem 1.25rem;
-     border: 1px solid rgba(92, 58, 35, .18);
-     border-radius: var(--radius-sm);
-     background: var(--white);
-     box-shadow: var(--shadow-sm);
-     transition: all .3s var(--ease-out);
-     flex-shrink: 0;
-}
-
-.search-btn-icon {
-     font-size: 1.15rem;
-     line-height: 1;
-     color: var(--caramel);
-}
-
-.search-btn:hover {
-     color: var(--espresso);
-     border-color: var(--caramel);
-     box-shadow: var(--shadow-md);
-     transform: translateY(-2px);
 }
 
 /* ===================================
@@ -214,7 +232,6 @@ main {
      transition: background .2s ease;
 }
 
-/* folder indent line */
 #posts li::before,
 #results li::before {
      content: '';
@@ -254,7 +271,6 @@ main {
      transition: color .2s ease, padding-left .2s var(--ease-out);
 }
 
-/* folder icon */
 #posts a::before,
 #results a::before {
      content: '▸';
@@ -304,51 +320,6 @@ main {
      border-color: var(--caramel);
      transform: translateX(-4px);
      box-shadow: var(--shadow-md);
-}
-
-/* ===================================
-   SEARCH
-   =================================== */
-
-.search-box {
-     margin-bottom: 2rem;
-     position: relative;
-}
-
-.search-box::before {
-     content: '⌕';
-     position: absolute;
-     left: 1.25rem;
-     top: 50%;
-     transform: translateY(-50%);
-     color: var(--subtle);
-     font-size: 1.3rem;
-     pointer-events: none;
-}
-
-#q {
-     width: 100%;
-     padding: 1.1rem 1.5rem 1.1rem 3rem;
-     font-size: 1rem;
-     font-family: 'DM Sans', sans-serif;
-     font-weight: 300;
-     color: var(--ink);
-     background: var(--white);
-     border: 1px solid rgba(160, 113, 74, .2);
-     border-radius: var(--radius-md);
-     box-shadow: var(--shadow-sm);
-     transition: all .3s ease;
-     outline: none;
-}
-
-#q:focus {
-     border-color: var(--caramel);
-     box-shadow: 0 0 0 3px rgba(160, 113, 74, .12), var(--shadow-md);
-}
-
-#q::placeholder {
-     color: var(--subtle);
-     font-style: italic;
 }
 
 /* ===================================
@@ -501,7 +472,6 @@ main {
      margin: 2.5rem 0;
 }
 
-/* Table */
 #content table {
      width: 100%;
      border-collapse: collapse;
@@ -676,27 +646,20 @@ footer::before {
    =================================== */
 
 @media (max-width: 900px) {
-     main {
-          padding: 98px 1.75rem 5rem;
-     }
-
      #content {
           padding: 2.5rem;
      }
 }
 
 @media (max-width: 768px) {
-     header {
-          height: 60px;
+     :root {
+          --header-h: 60px;
+          --search-h: 40px;
      }
 
      .logo {
           width: 36px;
           height: 36px;
-     }
-
-     main {
-          padding: 88px 1.5rem 4rem;
      }
 
      #list-view h2 {
@@ -717,8 +680,9 @@ footer::before {
 }
 
 @media (max-width: 480px) {
-     header {
-          height: 56px;
+     :root {
+          --header-h: 56px;
+          --search-h: 38px;
      }
 
      .logo {
@@ -726,17 +690,8 @@ footer::before {
           height: 32px;
      }
 
-     main {
-          padding: 80px 1.25rem 3rem;
-     }
-
      #list-view h2 {
           font-size: 1.55rem;
-     }
-
-     .search-btn {
-          font-size: .8rem;
-          padding: .55rem 1rem;
      }
 
      #content {

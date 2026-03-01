@@ -1,5 +1,5 @@
 // ===================================
-// CONFIGURAÇÃO - ADICIONE SUAS PÁGINAS WIKI AQUI
+// CONFIGURAÇÃO
 // ===================================
 const SECTIONS = [
   "history.md",
@@ -19,7 +19,7 @@ const SECTIONS = [
 ];
 
 // ===================================
-// CÓDIGO DA WIKI
+// FETCH
 // ===================================
 
 async function fetchMD(file) {
@@ -33,12 +33,15 @@ async function fetchMD(file) {
   }
 }
 
-const params = new URLSearchParams(location.search);
-const file = params.get("file");
-const search = params.get("search");
+// ===================================
+// VIEWS
+// ===================================
 
-const listView = document.getElementById("list-view");
-const postView = document.getElementById("post-view");
+const params     = new URLSearchParams(location.search);
+const file       = params.get("file");
+
+const listView   = document.getElementById("list-view");
+const postView   = document.getElementById("post-view");
 const searchView = document.getElementById("search-view");
 
 function show(view) {
@@ -46,7 +49,69 @@ function show(view) {
   view.style.display = "block";
 }
 
-// ----- VISUALIZAÇÃO DE PÁGINA -----
+// ===================================
+// BUSCA AO VIVO — campo fixo
+// ===================================
+
+const liveInput  = document.getElementById("live-search");
+const resultsEl  = document.getElementById("results");
+
+// Pre-carrega todos os artigos em cache
+let articleData = [];
+
+Promise.all(
+  SECTIONS.map(async f => {
+    const md    = await fetchMD(f);
+    const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
+    return { file: f, title, text: md.toLowerCase() };
+  })
+).then(data => {
+  articleData = data;
+});
+
+let searchTimeout = null;
+
+liveInput.addEventListener("input", () => {
+  clearTimeout(searchTimeout);
+  const q = liveInput.value.trim();
+
+  if (!q) {
+    // Voltar à lista ou ao artigo aberto
+    if (file) {
+      show(postView);
+    } else {
+      show(listView);
+    }
+    return;
+  }
+
+  searchTimeout = setTimeout(() => doLiveSearch(q), 240);
+});
+
+function doLiveSearch(q) {
+  show(searchView);
+
+  const ql      = q.toLowerCase();
+  const matches = articleData.filter(p => p.text.includes(ql));
+
+  resultsEl.innerHTML = "";
+
+  if (matches.length === 0) {
+    resultsEl.innerHTML = '<li style="padding:1rem 1.75rem;color:var(--subtle);font-style:italic;">Nenhum resultado encontrado.</li>';
+    return;
+  }
+
+  matches.forEach(p => {
+    const li  = document.createElement('li');
+    li.innerHTML = `<a href="?file=${encodeURIComponent(p.file)}">${p.title}</a>`;
+    resultsEl.appendChild(li);
+  });
+}
+
+// ===================================
+// ROTEAMENTO
+// ===================================
+
 if (file) {
   show(postView);
 
@@ -55,61 +120,6 @@ if (file) {
     document.getElementById("content").innerHTML = DOMPurify.sanitize(html);
   });
 
-// ----- BUSCA -----
-} else if (search !== null) {
-  show(searchView);
-
-  const input = document.getElementById("q");
-  const results = document.getElementById("results");
-  input.value = search;
-
-  let data = [];
-
-  Promise.all(
-    SECTIONS.map(async f => {
-      const md = await fetchMD(f);
-      const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
-      return { 
-        file: f, 
-        title: title,
-        text: md.toLowerCase() 
-      };
-    })
-  ).then(d => {
-    data = d;
-    doSearch();
-  });
-
-  input.addEventListener("input", () => {
-    const searchValue = input.value;
-    history.replaceState(null, "", `?search=${encodeURIComponent(searchValue)}`);
-    doSearch();
-  });
-
-  function doSearch() {
-    const q = input.value.toLowerCase().trim();
-    results.innerHTML = "";
-
-    if (!q) {
-      results.innerHTML = '<li style="color: #999;">...</li>';
-      return;
-    }
-
-    const matches = data.filter(p => p.text.includes(q));
-
-    if (matches.length === 0) {
-      results.innerHTML = '<li style="color: #999;">Nenhum resultado encontrado. Tente termos como: Pilão, V60, Arábica, Torrefação.</li>';
-      return;
-    }
-
-    matches.forEach(p => {
-      const li = document.createElement('li');
-      li.innerHTML = `<a href="?file=${encodeURIComponent(p.file)}">${p.title}</a>`;
-      results.appendChild(li);
-    });
-  }
-
-// ----- LISTA DE PÁGINAS -----
 } else {
   show(listView);
 
@@ -117,9 +127,9 @@ if (file) {
 
   Promise.all(
     SECTIONS.map(async f => {
-      const md = await fetchMD(f);
+      const md    = await fetchMD(f);
       const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
-      return { file: f, title: title };
+      return { file: f, title };
     })
   ).then(sections => {
     ul.innerHTML = "";
