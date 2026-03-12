@@ -4,7 +4,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>CAFFEINDEX</title>
+     <title>CAFFEWIKI</title>
      <link rel="stylesheet" href="main.css">
      <link rel="icon" href="./assets/icons/coffee_fav_icon.png" type="image/png">
 
@@ -12,22 +12,22 @@
           content="Wiki completa sobre café: marcas, métodos de preparo, origens, dados técnicos, tabelas comparativas e informações detalhadas sobre o mundo do café.">
      <meta name="keywords"
           content="café, coffee, wiki café, marcas de café, preparo de café, métodos de extração, coffee brewing, espresso, cafeteira, grãos de café, torrefação">
-     <meta name="author" content="CaffeIndex">
+     <meta name="author" content="CaffeWiki">
      <meta name="robots" content="index, follow">
 
      <meta property="og:type" content="website">
-     <meta property="og:url" content="https://devgbr86.github.io/caffe-index/">
-     <meta property="og:title" content="CaffeIndex — Enciclopédia Completa sobre Café">
+     <meta property="og:url" content="https://devgbr86.github.io/caffe-wiki/">
+     <meta property="og:title" content="CaffeWiki — Enciclopédia Completa sobre Café">
      <meta property="og:description"
           content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
-     <meta property="og:image" content="https://devgbr86.github.io/caffe-index/icon_grain.png">
+     <meta property="og:image" content="https://devgbr86.github.io/caffe-wiki/icon_grain.png">
 
      <meta property="twitter:card" content="summary_large_image">
-     <meta property="twitter:url" content="https://devgbr86.github.io/caffe-index/">
-     <meta property="twitter:title" content="CaffeIndex — Enciclopédia Completa sobre Café">
+     <meta property="twitter:url" content="https://devgbr86.github.io/caffe-wiki/">
+     <meta property="twitter:title" content="CaffeWiki — Enciclopédia Completa sobre Café">
      <meta property="twitter:description"
           content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
-     <meta property="twitter:image" content="https://devgbr86.github.io/caffe-index/icon_grain.png">
+     <meta property="twitter:image" content="https://devgbr86.github.io/caffe-wiki/icon_grain.png">
 
      <link rel="canonical" href="https://devgbr86.github.io/caffe-index/">
      <meta http-equiv="content-language" content="pt-BR">
@@ -35,50 +35,92 @@
 
 <body>
 
+     <!-- ===========================
+       HEADER
+       =========================== -->
      <header>
+          <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">☰</button>
+
           <a href="index.html" class="header-logo-link">
-               <img class="logo" src="./assets/icons/icon_grain.png" alt="CaffeIndex — Voltar ao início" width="40"
-                    height="40">
+               <img class="logo" src="./assets/icons/icon_grain.png" alt="CaffeWiki" width="32" height="32">
+               <span class="header-site-name">CAFFEWIKI</span>
           </a>
+
+          <!-- SEARCH BAR — inside header, right side -->
+          <div class="fixed-search-bar">
+               <div class="fixed-search-wrapper">
+                    <span class="fixed-search-icon">⌕</span>
+                    <input id="live-search" type="text" class="fixed-search-input" placeholder="Pesquisar…"
+                         autocomplete="off" />
+               </div>
+          </div>
      </header>
 
-     <!-- SEARCH BAR — fixa abaixo do header, sempre visível -->
-     <div class="fixed-search-bar">
-          <div class="fixed-search-wrapper">
-               <span class="fixed-search-icon">⌕</span>
-               <input id="live-search" type="text" class="fixed-search-input" placeholder="Pesquisar…"
-                    autocomplete="off" />
-          </div>
+     <!-- ===========================
+       PAGE WRAPPER
+       =========================== -->
+     <div class="page-wrapper">
+
+          <!-- SIDEBAR -->
+          <aside class="sidebar" id="sidebar">
+               <div class="sidebar-inner">
+
+                    <div class="sidebar-about">
+                         <strong>CAFFEWIKI</strong><br>
+                         Enciclopédia sobre café — origens, espécies, métodos, marcas e mais.
+                    </div>
+
+                    <div class="sidebar-section-label">Artigos</div>
+                    <ul class="sidebar-nav" id="sidebar-nav">
+                         <!-- populated by JS -->
+                    </ul>
+
+                    <!-- <div class="sidebar-section-label" style="margin-top:0.5rem;">Sobre</div>
+                    <div class="sidebar-about">
+                         Desenvolvido por <a href="mailto:topverbs@gmail.com">Guilherme Ribeiro</a>.<br>
+                         <a href="https://fronthub.pages.dev" target="_blank" rel="noopener">fronthub.pages.dev</a>
+                    </div> -->
+
+               </div>
+          </aside>
+
+          <!-- MAIN CONTENT -->
+          <main>
+
+               <!-- LIST VIEW -->
+               <section id="list-view">
+                    <div class="list-header">
+                         <h2>CAFFEWIKI — Enciclopédia do Café</h2>
+                    </div>
+                    <p class="list-intro">Base de conhecimento dedicada a catalogar informações técnicas sobre café.</p>
+                    <ul id="posts"></ul>
+               </section>
+
+               <!-- POST VIEW -->
+               <section id="post-view" style="display:none">
+                    <a href="index.html" class="back-link">← Voltar ao índice</a>
+                    <article id="content"></article>
+               </section>
+
+               <!-- SEARCH RESULTS -->
+               <section id="search-view" style="display:none">
+                    <div class="list-header">
+                         <h2>Resultados da pesquisa</h2>
+                    </div>
+                    <ul id="results"></ul>
+               </section>
+
+          </main>
      </div>
 
-     <main>
-
-          <!-- LISTA -->
-          <section id="list-view">
-               <div class="list-header">
-                    <h2>CAFFEINDEX</h2>
-               </div>
-               <ul id="posts"></ul>
-          </section>
-
-          <!-- POST -->
-          <section id="post-view" style="display:none">
-               <a href="index.html" class="back-link">← Voltar</a>
-               <article id="content"></article>
-          </section>
-
-          <!-- SEARCH RESULTS (live) -->
-          <section id="search-view" style="display:none">
-               <ul id="results"></ul>
-          </section>
-
-     </main>
-
+     <!-- ===========================
+       FOOTER
+       =========================== -->
      <footer id="footerwiki">
           <div class="footer-content">
 
                <section id="sobre" class="about-section">
-                    <h2>Sobre a CAFFEINDEX</h2>
+                    <h2>Sobre a CAFFEWIKI</h2>
                     <p>Desenvolvido por Guilherme Ribeiro. Base de conhecimento dedicada a catalogar e documentar
                          informações técnicas sobre café. Marcas, métodos de preparo, origens, dados comparativos e
                          especificações para referência completa.</p>
@@ -100,7 +142,7 @@
                     </div>
                </section>
 
-               <p class="footer-note">© 2026 CAFFEINDEX</p>
+               <p class="footer-note">© 2026 CAFFEWIKI — Enciclopédia sobre café</p>
 
           </div>
      </footer>

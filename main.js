@@ -2,20 +2,20 @@
 // CONFIGURAÇÃO
 // ===================================
 const SECTIONS = [
-  "history.md",
-  "species.md",
-  "arabica.md",
-  "robusta.md",
-  "liberica.md",
-  "excelsa.md",
-  "varieties.md",
-  "processing.md",
-  "roasting.md",
-  "grind_brew.md",
-  "industry.md",
-  "brands.md",
-  "nutrition.md",
-  "glossary.md"
+  { file: "history.md",    label: "História do Café" },
+  { file: "species.md",    label: "Espécies" },
+  { file: "arabica.md",    label: "Arábica" },
+  { file: "robusta.md",    label: "Robusta" },
+  { file: "liberica.md",   label: "Liberica" },
+  { file: "excelsa.md",    label: "Excelsa" },
+  { file: "varieties.md",  label: "Variedades" },
+  { file: "processing.md", label: "Processamento" },
+  { file: "roasting.md",   label: "Torra" },
+  { file: "grind_brew.md", label: "Moagem e Preparo" },
+  { file: "industry.md",   label: "Indústria" },
+  { file: "brands.md",     label: "Marcas" },
+  { file: "nutrition.md",  label: "Nutrição" },
+  { file: "glossary.md",   label: "Glossário" }
 ];
 
 // ===================================
@@ -31,6 +31,11 @@ async function fetchMD(file) {
     console.error(`Erro ao carregar ${file}:`, error);
     return `# Erro ao carregar página\n\nVerifique se o arquivo ${file} existe na pasta /articles/`;
   }
+}
+
+// Extrai título do markdown (primeiro h1)
+function extractTitle(md, fallback) {
+  return md.match(/^#\s(.+)/m)?.[1] || fallback;
 }
 
 // ===================================
@@ -50,20 +55,60 @@ function show(view) {
 }
 
 // ===================================
+// SIDEBAR — build nav + active state
+// ===================================
+
+const sidebarNav = document.getElementById("sidebar-nav");
+
+SECTIONS.forEach(s => {
+  const li = document.createElement("li");
+  const a  = document.createElement("a");
+  a.href = `?file=${encodeURIComponent(s.file)}`;
+  a.textContent = s.label;
+  if (file === s.file) {
+    a.classList.add("active");
+  }
+  li.appendChild(a);
+  sidebarNav.appendChild(li);
+});
+
+// ===================================
+// SIDEBAR MOBILE TOGGLE
+// ===================================
+
+const sidebarEl = document.getElementById("sidebar");
+const toggleBtn = document.getElementById("sidebar-toggle");
+
+toggleBtn.addEventListener("click", () => {
+  sidebarEl.classList.toggle("open");
+});
+
+// Close sidebar when clicking outside on mobile
+document.addEventListener("click", (e) => {
+  if (
+    sidebarEl.classList.contains("open") &&
+    !sidebarEl.contains(e.target) &&
+    e.target !== toggleBtn
+  ) {
+    sidebarEl.classList.remove("open");
+  }
+});
+
+// ===================================
 // BUSCA AO VIVO — campo fixo
 // ===================================
 
-const liveInput  = document.getElementById("live-search");
-const resultsEl  = document.getElementById("results");
+const liveInput = document.getElementById("live-search");
+const resultsEl = document.getElementById("results");
 
 // Pre-carrega todos os artigos em cache
 let articleData = [];
 
 Promise.all(
-  SECTIONS.map(async f => {
-    const md    = await fetchMD(f);
-    const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
-    return { file: f, title, text: md.toLowerCase() };
+  SECTIONS.map(async s => {
+    const md    = await fetchMD(s.file);
+    const title = extractTitle(md, s.label);
+    return { file: s.file, title, text: md.toLowerCase() };
   })
 ).then(data => {
   articleData = data;
@@ -76,7 +121,6 @@ liveInput.addEventListener("input", () => {
   const q = liveInput.value.trim();
 
   if (!q) {
-    // Voltar à lista ou ao artigo aberto
     if (file) {
       show(postView);
     } else {
@@ -97,12 +141,12 @@ function doLiveSearch(q) {
   resultsEl.innerHTML = "";
 
   if (matches.length === 0) {
-    resultsEl.innerHTML = '<li style="padding:1rem 1.75rem;color:var(--subtle);font-style:italic;">Nenhum resultado encontrado.</li>';
+    resultsEl.innerHTML = '<li style="padding:0.6rem 0.75rem;color:#54595d;font-style:italic;font-size:13px;">Nenhum resultado encontrado.</li>';
     return;
   }
 
   matches.forEach(p => {
-    const li  = document.createElement('li');
+    const li = document.createElement("li");
     li.innerHTML = `<a href="?file=${encodeURIComponent(p.file)}">${p.title}</a>`;
     resultsEl.appendChild(li);
   });
@@ -118,6 +162,10 @@ if (file) {
   fetchMD(file).then(md => {
     const html = marked.parse(md);
     document.getElementById("content").innerHTML = DOMPurify.sanitize(html);
+
+    // Update page title
+    const title = extractTitle(md, file.replace(".md", ""));
+    document.title = `${title} — CAFFEINDEX`;
   });
 
 } else {
@@ -126,15 +174,15 @@ if (file) {
   const ul = document.getElementById("posts");
 
   Promise.all(
-    SECTIONS.map(async f => {
-      const md    = await fetchMD(f);
-      const title = md.match(/^#\s(.+)/m)?.[1] || f.replace('.md', '');
-      return { file: f, title };
+    SECTIONS.map(async s => {
+      const md    = await fetchMD(s.file);
+      const title = extractTitle(md, s.label);
+      return { file: s.file, title };
     })
   ).then(sections => {
     ul.innerHTML = "";
     sections.forEach(p => {
-      const li = document.createElement('li');
+      const li = document.createElement("li");
       li.innerHTML = `<a href="?file=${encodeURIComponent(p.file)}">${p.title}</a>`;
       ul.appendChild(li);
     });
