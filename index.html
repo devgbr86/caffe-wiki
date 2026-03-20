@@ -29,7 +29,7 @@
           content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
      <meta property="twitter:image" content="https://devgbr86.github.io/caffe-wiki/icon_grain.png">
 
-     <link rel="canonical" href="https://devgbr86.github.io/caffe-index/">
+     <link rel="canonical" href="https://devgbr86.github.io/caffe-wiki/">
      <meta http-equiv="content-language" content="pt-BR">
 </head>
 
@@ -41,7 +41,7 @@
      <header>
           <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">☰</button>
 
-          <a href="index.html" class="header-logo-link">
+          <a href="/" class="header-logo-link">
                <img class="logo" src="./assets/icon_grain.png" alt="CaffeWiki" width="32" height="32">
                <span class="header-site-name">CAFFEWIKI</span>
           </a>
@@ -75,12 +75,6 @@
                          <!-- populated by JS -->
                     </ul>
 
-                    <!-- <div class="sidebar-section-label" style="margin-top:0.5rem;">Sobre</div>
-                    <div class="sidebar-about">
-                         Desenvolvido por <a href="mailto:topverbs@gmail.com">Guilherme Ribeiro</a>.<br>
-                         <a href="https://fronthub.pages.dev" target="_blank" rel="noopener">fronthub.pages.dev</a>
-                    </div> -->
-
                </div>
           </aside>
 
@@ -98,7 +92,7 @@
 
                <!-- POST VIEW -->
                <section id="post-view" style="display:none">
-                    <a href="index.html" class="back-link">← Voltar ao índice</a>
+                    <a href="/" class="back-link">← Voltar ao índice</a>
                     <article id="content"></article>
                </section>
 
@@ -142,13 +136,14 @@
                     </div>
                </section>
 
-               <p class="footer-note">© 2026 CAFFEWIKI — Enciclopédia sobre café</p>
+               <p class="footer-note">© 2026 CAFFEWIKI</p>
 
           </div>
      </footer>
 
      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+     <script src="./src/router.js"></script>
      <script src="./src/main.js"></script>
 
 </body>

@@ -1,90 +1,78 @@
 // ===================================
-// CONFIGURAÇÃO
+// CAFFEWIKI — main.js
 // ===================================
-const SECTIONS = [
-  { file: "history.md",    label: "História do Café" },
-  { file: "species.md",    label: "Espécies" },
-  { file: "arabica.md",    label: "Arábica" },
-  { file: "robusta.md",    label: "Robusta" },
-  { file: "liberica.md",   label: "Liberica" },
-  { file: "excelsa.md",    label: "Excelsa" },
-  { file: "varieties.md",  label: "Variedades" },
-  { file: "processing.md", label: "Processamento" },
-  { file: "roasting.md",   label: "Torra" },
-  { file: "grind_brew.md", label: "Moagem e Preparo" },
-  { file: "industry.md",   label: "Indústria" },
-  { file: "brands.md",     label: "Marcas" },
-  { file: "nutrition.md",  label: "Nutrição" },
-  { file: "glossary.md",   label: "Glossário" }
-];
+// Depends on: router.js (must load first, exposes window.CaffeRouter)
+// ===================================
+
+// Alias único — nunca desestrutura no topo para não redeclarar globais
+var R        = window.CaffeRouter;
+var SECTIONS = R.ROUTES;
 
 // ===================================
 // FETCH
 // ===================================
 
-async function fetchMD(file) {
-  try {
-    const response = await fetch(`articles/${file}`);
-    if (!response.ok) throw new Error('Página não encontrada');
-    return await response.text();
-  } catch (error) {
-    console.error(`Erro ao carregar ${file}:`, error);
-    return `# Erro ao carregar página\n\nVerifique se o arquivo ${file} existe na pasta /articles/`;
-  }
+function fetchMD(file) {
+  return fetch("/articles/" + file)
+    .then(function(res) {
+      if (!res.ok) throw new Error("Página não encontrada");
+      return res.text();
+    })
+    .catch(function(err) {
+      console.error("Erro ao carregar " + file + ":", err);
+      return "# Erro ao carregar página\n\nVerifique se o arquivo " + file + " existe na pasta /articles/";
+    });
 }
 
-// Extrai título do markdown (primeiro h1)
 function extractTitle(md, fallback) {
-  return md.match(/^#\s(.+)/m)?.[1] || fallback;
+  var m = md.match(/^#\s(.+)/m);
+  return m ? m[1] : fallback;
 }
 
 // ===================================
 // VIEWS
 // ===================================
 
-const params     = new URLSearchParams(location.search);
-const file       = params.get("file");
-
-const listView   = document.getElementById("list-view");
-const postView   = document.getElementById("post-view");
-const searchView = document.getElementById("search-view");
+var listView   = document.getElementById("list-view");
+var postView   = document.getElementById("post-view");
+var searchView = document.getElementById("search-view");
 
 function show(view) {
-  [listView, postView, searchView].forEach(v => v.style.display = "none");
+  [listView, postView, searchView].forEach(function(v) { v.style.display = "none"; });
   view.style.display = "block";
 }
 
 // ===================================
-// SIDEBAR — build nav + active state
+// SIDEBAR
 // ===================================
 
-const sidebarNav = document.getElementById("sidebar-nav");
+var sidebarNav = document.getElementById("sidebar-nav");
 
-SECTIONS.forEach(s => {
-  const li = document.createElement("li");
-  const a  = document.createElement("a");
-  a.href = `?file=${encodeURIComponent(s.file)}`;
-  a.textContent = s.label;
-  if (file === s.file) {
-    a.classList.add("active");
-  }
-  li.appendChild(a);
-  sidebarNav.appendChild(li);
-});
+function buildSidebar(activeFile) {
+  sidebarNav.innerHTML = "";
+  SECTIONS.forEach(function(r) {
+    var li = document.createElement("li");
+    var a  = document.createElement("a");
+    a.href        = R.routePath(r);
+    a.textContent = r.label;
+    if (r.file === activeFile) a.classList.add("active");
+    li.appendChild(a);
+    sidebarNav.appendChild(li);
+  });
+}
 
 // ===================================
 // SIDEBAR MOBILE TOGGLE
 // ===================================
 
-const sidebarEl = document.getElementById("sidebar");
-const toggleBtn = document.getElementById("sidebar-toggle");
+var sidebarEl = document.getElementById("sidebar");
+var toggleBtn = document.getElementById("sidebar-toggle");
 
-toggleBtn.addEventListener("click", () => {
+toggleBtn.addEventListener("click", function() {
   sidebarEl.classList.toggle("open");
 });
 
-// Close sidebar when clicking outside on mobile
-document.addEventListener("click", (e) => {
+document.addEventListener("click", function(e) {
   if (
     sidebarEl.classList.contains("open") &&
     !sidebarEl.contains(e.target) &&
@@ -95,48 +83,38 @@ document.addEventListener("click", (e) => {
 });
 
 // ===================================
-// BUSCA AO VIVO — campo fixo
+// BUSCA AO VIVO
 // ===================================
 
-const liveInput = document.getElementById("live-search");
-const resultsEl = document.getElementById("results");
+var liveInput = document.getElementById("live-search");
+var resultsEl = document.getElementById("results");
 
-// Pre-carrega todos os artigos em cache
-let articleData = [];
+var articleData  = [];
+var currentRoute = null;
+var searchTimeout = null;
 
 Promise.all(
-  SECTIONS.map(async s => {
-    const md    = await fetchMD(s.file);
-    const title = extractTitle(md, s.label);
-    return { file: s.file, title, text: md.toLowerCase() };
+  SECTIONS.map(function(r) {
+    return fetchMD(r.file).then(function(md) {
+      return { file: r.file, title: extractTitle(md, r.label), text: md.toLowerCase() };
+    });
   })
-).then(data => {
-  articleData = data;
-});
+).then(function(data) { articleData = data; });
 
-let searchTimeout = null;
-
-liveInput.addEventListener("input", () => {
+liveInput.addEventListener("input", function() {
   clearTimeout(searchTimeout);
-  const q = liveInput.value.trim();
-
+  var q = liveInput.value.trim();
   if (!q) {
-    if (file) {
-      show(postView);
-    } else {
-      show(listView);
-    }
+    currentRoute ? show(postView) : show(listView);
     return;
   }
-
-  searchTimeout = setTimeout(() => doLiveSearch(q), 240);
+  searchTimeout = setTimeout(function() { doLiveSearch(q); }, 240);
 });
 
 function doLiveSearch(q) {
   show(searchView);
-
-  const ql      = q.toLowerCase();
-  const matches = articleData.filter(p => p.text.includes(ql));
+  var ql      = q.toLowerCase();
+  var matches = articleData.filter(function(p) { return p.text.indexOf(ql) !== -1; });
 
   resultsEl.innerHTML = "";
 
@@ -145,9 +123,11 @@ function doLiveSearch(q) {
     return;
   }
 
-  matches.forEach(p => {
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="?file=${encodeURIComponent(p.file)}">${p.title}</a>`;
+  matches.forEach(function(p) {
+    var route = R.routeByFile(p.file);
+    var href  = route ? R.routePath(route) : ("?file=" + encodeURIComponent(p.file));
+    var li    = document.createElement("li");
+    li.innerHTML = '<a href="' + href + '">' + p.title + "</a>";
     resultsEl.appendChild(li);
   });
 }
@@ -156,35 +136,44 @@ function doLiveSearch(q) {
 // ROTEAMENTO
 // ===================================
 
-if (file) {
-  show(postView);
+function renderRoute(route) {
+  currentRoute = route;
+  buildSidebar(route ? route.file : null);
 
-  fetchMD(file).then(md => {
-    const html = marked.parse(md);
-    document.getElementById("content").innerHTML = DOMPurify.sanitize(html);
-
-    // Update page title
-    const title = extractTitle(md, file.replace(".md", ""));
-    document.title = `${title} — CAFFEINDEX`;
-  });
-
-} else {
-  show(listView);
-
-  const ul = document.getElementById("posts");
-
-  Promise.all(
-    SECTIONS.map(async s => {
-      const md    = await fetchMD(s.file);
-      const title = extractTitle(md, s.label);
-      return { file: s.file, title };
-    })
-  ).then(sections => {
-    ul.innerHTML = "";
-    sections.forEach(p => {
-      const li = document.createElement("li");
-      li.innerHTML = `<a href="?file=${encodeURIComponent(p.file)}">${p.title}</a>`;
-      ul.appendChild(li);
+  if (route) {
+    show(postView);
+    fetchMD(route.file).then(function(md) {
+      document.getElementById("content").innerHTML = DOMPurify.sanitize(marked.parse(md));
+      document.title = extractTitle(md, route.label) + " — CAFFEWIKI";
     });
-  });
+  } else {
+    show(listView);
+    document.title = "CAFFEWIKI";
+    var ul = document.getElementById("posts");
+    Promise.all(
+      SECTIONS.map(function(r) {
+        return fetchMD(r.file).then(function(md) {
+          return { route: r, title: extractTitle(md, r.label) };
+        });
+      })
+    ).then(function(sections) {
+      ul.innerHTML = "";
+      sections.forEach(function(s) {
+        var li = document.createElement("li");
+        li.innerHTML = '<a href="' + R.routePath(s.route) + '">' + s.title + "</a>";
+        ul.appendChild(li);
+      });
+    });
+  }
 }
+
+// ===================================
+// BOOT
+// ===================================
+
+window.addEventListener("routechange", function(e) {
+  renderRoute(e.detail);
+  liveInput.value = "";
+});
+
+renderRoute(R.resolveCurrentRoute());
