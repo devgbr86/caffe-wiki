@@ -176,4 +176,14 @@ window.addEventListener("routechange", function(e) {
   liveInput.value = "";
 });
 
-renderRoute(R.resolveCurrentRoute());
+// Aguarda DOMPurify + marked estarem prontos (carregados por src/lib/marked.js)
+// Se já estiverem disponíveis (ex: carregamento síncrono legado), inicia direto.
+function boot() {
+  renderRoute(R.resolveCurrentRoute());
+}
+
+if (typeof marked !== "undefined" && typeof DOMPurify !== "undefined") {
+  boot();
+} else {
+  window.addEventListener("caffewiki:libs-ready", boot, { once: true });
+}

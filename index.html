@@ -6,7 +6,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>CAFFEWIKI</title>
      <link rel="stylesheet" href="./src/styles/main.css">
-     <link rel="icon" href="coffee_fav_icon.png" type="image/png">
+     <link rel="icon" href="./src/assets/coffee_fav_icon.png" type="image/png">
 
      <meta name="description"
           content="Wiki completa sobre café: marcas, métodos de preparo, origens, dados técnicos, tabelas comparativas e informações detalhadas sobre o mundo do café.">
@@ -42,7 +42,7 @@
           <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">☰</button>
 
           <a href="/" class="header-logo-link">
-               <img class="logo" src="icon_grain.png" alt="CaffeWiki" width="32" height="32">
+               <img class="logo" src="./src/assets/coffee_fav_icon.png" alt="CaffeWiki" width="32" height="32">
                <span class="header-site-name">CAFFEWIKI</span>
           </a>
 
@@ -141,10 +141,15 @@
           </div>
      </footer>
 
-     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
-     <script src="./src/router.js"></script>
-     <script src="./src/main.js"></script>
+     <!--
+       ORDEM DE CARREGAMENTO:
+       1. src/lib/marked.js   — carrega DOMPurify + marked via CDN (async, dispara 'caffewiki:libs-ready')
+       2. src/core/router.js  — expõe window.CaffeRouter (síncrono, sem deps externas)
+       3. src/core/main.js    — inicializa a wiki (aguarda 'caffewiki:libs-ready' se necessário)
+     -->
+     <script src="./src/lib/marked.js"></script>
+     <script src="./src/core/router.js"></script>
+     <script src="./src/core/main.js"></script>
 
 </body>
 
