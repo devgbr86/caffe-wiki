@@ -2,155 +2,35 @@
 <html lang="pt-BR">
 
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>CAFFEWIKI</title>
-     <link rel="stylesheet" href="./src/styles/main.css">
-     <link rel="icon" href="./assets/coffee_fav_icon.png" type="image/png">
-
-     <meta name="description"
-          content="Wiki completa sobre café: marcas, métodos de preparo, origens, dados técnicos, tabelas comparativas e informações detalhadas sobre o mundo do café.">
-     <meta name="keywords"
-          content="café, coffee, wiki café, marcas de café, preparo de café, métodos de extração, coffee brewing, espresso, cafeteira, grãos de café, torrefação">
-     <meta name="author" content="CaffeWiki">
-     <meta name="robots" content="index, follow">
-
-     <meta property="og:type" content="website">
-     <meta property="og:url" content="https://devgbr86.github.io/caffe-wiki/">
-     <meta property="og:title" content="CaffeWiki — Enciclopédia Completa sobre Café">
-     <meta property="og:description"
-          content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
-     <meta property="og:image" content="https://devgbr86.github.io/caffe-wiki/icon_grain.png">
-
-     <meta property="twitter:card" content="summary_large_image">
-     <meta property="twitter:url" content="https://devgbr86.github.io/caffe-wiki/">
-     <meta property="twitter:title" content="CaffeWiki — Enciclopédia Completa sobre Café">
-     <meta property="twitter:description"
-          content="Base de dados completa sobre café: marcas, métodos de preparo, origens, especificações técnicas e tudo sobre o universo do café.">
-     <meta property="twitter:image" content="https://devgbr86.github.io/caffe-wiki/icon_grain.png">
-
-     <link rel="canonical" href="https://devgbr86.github.io/caffe-wiki/">
-     <meta http-equiv="content-language" content="pt-BR">
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <meta name="description" content="Caffe Wiki — blog de leitura limpa." />
+     <title>Caffe Wiki</title>
+     <link rel="icon" type="image/png"
+          href="https://github.com/ribeirorep/ribeirorep/releases/download/assets/coffee-bean.png">
+     <link rel="stylesheet" href="./src/styles.css" />
 </head>
 
 <body>
-
-     <!-- ===========================
-       HEADER
-       =========================== -->
-     <header>
-          <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">☰</button>
-
-          <a href="/" class="header-logo-link">
-               <img class="logo" src="./assets/coffee_fav_icon.png" alt="CaffeWiki" width="32" height="32">
-               <span class="header-site-name">CAFFEWIKI</span>
+     <nav>
+          <a href="#/" class="nav-brand">
+               <img style="width: 35px;height: 35px;border-radius: 25%;"
+                    src="https://github.com/ribeirorep/ribeirorep/releases/download/assets/coffee-bean.png"
+                    alt="Caffe Wiki">
           </a>
+          <a href="#/articles">Artigos</a>
+          <a href="#/contact">Contato</a>
+     </nav>
 
-          <!-- SEARCH BAR — inside header, right side -->
-          <div class="fixed-search-bar">
-               <div class="fixed-search-wrapper">
-                    <span class="fixed-search-icon">⌕</span>
-                    <input id="live-search" type="text" class="fixed-search-input" placeholder="Pesquisar…"
-                         autocomplete="off" />
-               </div>
-          </div>
-     </header>
+     <main id="app"></main>
 
-     <!-- ===========================
-       PAGE WRAPPER
-       =========================== -->
-     <div class="page-wrapper">
-
-          <!-- SIDEBAR -->
-          <aside class="sidebar" id="sidebar">
-               <div class="sidebar-inner">
-
-                    <div class="sidebar-about">
-                         <strong>CAFFEWIKI</strong><br>
-                         Enciclopédia sobre café — origens, espécies, métodos, marcas e mais.
-                    </div>
-
-                    <div class="sidebar-section-label">Artigos</div>
-                    <ul class="sidebar-nav" id="sidebar-nav">
-                         <!-- populated by JS -->
-                    </ul>
-
-               </div>
-          </aside>
-
-          <!-- MAIN CONTENT -->
-          <main>
-
-               <!-- LIST VIEW -->
-               <section id="list-view">
-                    <div class="list-header">
-                         <h2>CAFFEWIKI — Enciclopédia do Café</h2>
-                    </div>
-                    <p class="list-intro">Base de conhecimento dedicada a catalogar informações técnicas sobre café.</p>
-                    <ul id="posts"></ul>
-               </section>
-
-               <!-- POST VIEW -->
-               <section id="post-view" style="display:none">
-                    <a href="/" class="back-link">← Voltar ao índice</a>
-                    <article id="content"></article>
-               </section>
-
-               <!-- SEARCH RESULTS -->
-               <section id="search-view" style="display:none">
-                    <div class="list-header">
-                         <h2>Resultados da pesquisa</h2>
-                    </div>
-                    <ul id="results"></ul>
-               </section>
-
-          </main>
-     </div>
-
-     <!-- ===========================
-       FOOTER
-       =========================== -->
-     <footer id="footerwiki">
-          <div class="footer-content">
-
-               <section id="sobre" class="about-section">
-                    <h2>Sobre a CAFFEWIKI</h2>
-                    <p>Desenvolvido por Guilherme Ribeiro. Base de conhecimento dedicada a catalogar e documentar
-                         informações técnicas sobre café. Marcas, métodos de preparo, origens, dados comparativos e
-                         especificações para referência completa.</p>
-               </section>
-
-               <section class="contribute-section">
-                    <h3>Contato e Sugestões</h3>
-                    <p>Quer adicionar informações, corrigir dados ou sugerir novas entradas?</p>
-                    <div class="contact-links">
-                         <a href="mailto:topverbs@gmail.com" class="contact-link">
-                              <span class="icon">✉️</span>
-                              <span>topverbs@gmail.com</span>
-                         </a>
-                         <a href="https://fronthub.pages.dev" target="_blank" rel="noopener noreferrer"
-                              class="contact-link">
-                              <span class="icon">🔗</span>
-                              <span>fronthub.pages.dev</span>
-                         </a>
-                    </div>
-               </section>
-
-               <p class="footer-note">© 2026 CAFFEWIKI</p>
-
-          </div>
+     <footer>
+          <a href="#/legal/privacidade">Política de Privacidade</a>
+          <a href="#/legal/termos">Termos de Uso</a>
+          <a href="#/legal/cookies">Política de Cookies</a>
      </footer>
 
-     <!--
-       ORDEM DE CARREGAMENTO:
-       1. src/lib/marked.js   — carrega DOMPurify + marked via CDN (async, dispara 'caffewiki:libs-ready')
-       2. src/core/router.js  — expõe window.CaffeRouter (síncrono, sem deps externas)
-       3. src/core/main.js    — inicializa a wiki (aguarda 'caffewiki:libs-ready' se necessário)
-     -->
-     <script src="./src/lib/marked.js"></script>
-     <script src="./src/core/router.js"></script>
-     <script src="./src/core/main.js"></script>
-
+     <script type="module" src="./src/main.js"></script>
 </body>
 
 </html>
